@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        // const drinks = ['Agua', 'Cacaolat', 'Jagger']
+        // const age = 34
+        // const hasPermission = false
+        // const doubleValue = function (val) {
+        //     return val * val
+        // }
+
+
+
+        // Global objects equivalence
+        const drinks = new Array('Agua', 'Cacaolat', 'Jagger')
+        const age = new Number(34)
+        const hasPermission = new Boolean(false)
+        const doubleValue = new Function('val', 'return val * 2')
+
+
+        console.log('Mira su prototype ->', drinks)
+
+        console.log(Array.prototype)
+
+        Array.prototype.showLastElement = function () {
+            console.log('EL ULTIMO ELEMENTO ES', this[this.length - 1])
+        }
+
+        drinks.showLastElement()
+
+        Array.prototype.push = function (elementToPush) {
+            console.log('ESTÁS INTENTANDO METER', elementToPush, 'EN EL ARRAY, ¿EH? JEJEJEJ')
+            console.log('PUES NO LA VOY A METER Y ADEMÁS TE QUITO EL PRIMERO MWAHAHAHA')
+            this.shift()
+        }
+
+        drinks.push('CERVEZA')
+
+        console.log(drinks)
+
+
+        console.log('¿ES UN ARRAY?', Array.isArray(drinks))
+
+    </script>
+</body>
+
+</html>

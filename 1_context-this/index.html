@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        // Global context: window object
+        console.log('el contexto global es', this)
+        console.log('¿Es window el contexto global?', window === this)
+
+
+
+        // Funtion context: window object
+        function whatever() {
+            console.log('¿Cuál es el contexto de una función?', this)
+        }
+
+        whatever()
+
+
+        // Method context: own object
+        const person = {
+            name: 'Ger',
+            weight: 90,
+            age: 37,
+            grow() {
+                this.age++
+            },
+            run1() {                                    // Fail! Function context is window
+                setInterval(function () {
+                    this.weight -= .1
+                    console.log('Ahora peso', this.weight)
+                }, 1000)
+            },
+            run2() {                                    // Fail! Ñapa máxima
+                const that = this
+                setInterval(function () {
+                    that.weight -= .1
+                    console.log('Ahora peso', that.weight)
+                }, 1000)
+            },
+            run3() {                                    // Success!! .bind() gives the value for a function context
+                setInterval(function () {
+                    this.weight -= .1
+                    console.log('Ahora peso', this.weight)
+                }.bind(this), 1000)
+            },
+            run4() {                                    // Success! Arrow functions are ommited by this
+                setInterval(() => {
+                    this.weight -= .1
+                    console.log('Ahora peso', this.weight)
+                }, 1000)
+            }
+        }
+
+        console.log('Me llamo', person.name, 'y tengo', person.age, 'años')
+        person.grow()
+        console.log('Me llamo', person.name, 'y tengo', person.age, 'años')
+
+
+        // person.run1()
+        // person.run2()
+        // person.run3()
+        person.run4()
+
+    </script>
+</body>
+
+</html>
